@@ -1,0 +1,29 @@
+类MST算法包括以下四个步骤：
+	对于给定的图像I(M×N)，创建一个大小为(2M-1)×(2N-1)的数组L
+	将I中的顶点V_(y,x)赋值给L_(2y,2x),计算横边L_(2k,2l+1)=W(L_(2k,2l),L_(2k,2l+2) )，竖边L_(2k+1,2l)=W(L_(2k,2l),L_(2k+2,2l) )
+	将L中所有四邻域相连通的顶点元素(L_(2k,2l) )聚集到一个标签Label(i)中，i为划分的总区域数
+	从Label(i)中提取存放在里面所有的V_(y,x)，他们都属于同一个区域
+以下是类MST算法的伪代码表示：
+类MST算法包括以下四个步骤：
+	对于给定的图像I(M×N)，创建一个大小为(2M-1)×(2N-1)的数组L
+	将I中的顶点V_(y,x)赋值给L_(2y,2x),计算横边L_(2k,2l+1)=W(L_(2k,2l),L_(2k,2l+2) )，竖边L_(2k+1,2l)=W(L_(2k,2l),L_(2k+2,2l) )
+	将L中所有四邻域相连通的顶点元素(L_(2k,2l) )聚集到一个标签Label(i)中，i为划分的总区域数
+	从Label(i)中提取存放在里面所有的V_(y,x)，他们都属于同一个区域
+以下是类MST算法的伪代码表示：
+
+Function Label=mst-like(I,threshold)
+L=size(I)
+for each V[y,x] of I
+    L[2y,2x]=V[y,x]
+for each L
+    L[2k,2l+1]=W(L[2k,2],L[2k,2l+2])
+    L[2k+1,2l]=W(L[2k,2l],L[2k+2,2l])
+i=1
+for each L[y,x] of L
+    if L[y,x] is not labeled
+        Label(i).add(L[y,x])
+        for each L[,] DirectNeighbor of L[y,x]|neighbor
+            if L[,] is not labeled
+                Label(i).add(L[,])
+    i=i+1
+return Label
